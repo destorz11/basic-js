@@ -12,11 +12,21 @@ const { NotImplementedError } = require('../extensions/index.js')
  * Strings have 3 common characters - 2 "a"s and 1 "c".
  */
 function getCommonCharacterCount(s1, s2) {
-	let counter = 0
-	for (let i in s1) {
-		s2.includes(s1[i]) ? counter++ : false
+	let frequencyS1 = {}
+	let frequencyS2 = {}
+	for (let char of s1) {
+		frequencyS1[char] = (frequencyS1[char] || 0) + 1
 	}
-	return counter
+	for (let char of s2) {
+		frequencyS2[char] = (frequencyS2[char] || 0) + 1
+	}
+	let commonCount = 0
+	for (let char in frequencyS1) {
+		if (frequencyS2[char]) {
+			commonCount += Math.min(frequencyS1[char], frequencyS2[char])
+		}
+	}
+	return commonCount
 }
 
 module.exports = {
